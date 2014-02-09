@@ -7,9 +7,13 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import org.midsouthgreenways.android.R;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -24,6 +28,7 @@ import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.gson.Gson;
 import com.speakingcode.geojson.Feature;
 import com.speakingcode.geojson.GeoJSON;
@@ -40,6 +45,8 @@ public class MapViewerActivity
 	private GoogleMap map;
 	private SupportMapFragment mapFragment;
 	Gson gson = new Gson();
+	
+	private boolean processedMap = false;
 	
 	
 	@Override
@@ -79,7 +86,12 @@ public class MapViewerActivity
     }
 	
 	private void setupMap()
-	{      
+	{
+		if(processedMap)
+			return;
+		
+		processedMap = true;
+		
         GoogleMapOptions options = new GoogleMapOptions()
             .mapType(GoogleMap.MAP_TYPE_NORMAL)
             .camera(new CameraPosition(new LatLng(42.495694,-96.404795), 1, 0, 0));
@@ -158,29 +170,140 @@ public class MapViewerActivity
 	}
 
 	@Override
-	public void onGeoJSONParseDone(GeoJSON geoJSON)
+	public void onGeoJSONParseDone(final GeoJSON geoJSON)
 	{
+//		runOnUiThread
+//		(
+//			new Runnable() {public void run(){
+//				for (Feature f : geoJSON.getFeatures())
+//				{
+//					PolylineOptions p = new PolylineOptions();
+//					p.color(0xffffffff);
+//					p.visible(true);
+//					p.width(10);
+//					
+//					IGeometry geom = f.getGeometry();
+//					if (geom.getType().equalsIgnoreCase("LineString"))
+//					{
+//						for (double[] coord : ((LineString) geom).getLine())
+//						{
+//							p.add(new LatLng(coord[1], coord[0]));
+//							
+//						}
+//					}
+//					
+//					map.addPolyline(p);
+//				}
+//			} }
+//		);
+//	return;
+		HashMap<String, List<Feature>> featureGroups = new HashMap<String, List<Feature>>();
+		featureGroups.put("Bike Routes", new ArrayList<Feature>());
+		featureGroups.put("Bike Lanes", new ArrayList<Feature>());
+		featureGroups.put("Shared Lanes", new ArrayList<Feature>());
+		featureGroups.put("Trails", new ArrayList<Feature>());
+		
 		for (Feature feature : geoJSON.getFeatures())
 		{
-			IGeometry geom = feature.getGeometry();
-			if(geom.getType().equalsIgnoreCase("LineString"))
+			String featureType = feature.getProperties().getTYPE();
+			
+			if
+			(
+				featureType.equalsIgnoreCase("Bike Route")
+				|| featureType.equalsIgnoreCase("Bike Facility")
+			)
 			{
-				LineString lineString = (LineString)geom;
-				for(double[] coord : lineString.getLine())
-				{
-					Log.d("LineString", coord.toString());
-				}
+				featureGroups.get("Bike Routes").add(feature);
 			}
-			else if(geom.getType().equalsIgnoreCase("MultiLineString"))
+			else if
+			(
+				featureType.equalsIgnoreCase("Shared Lane")
+				|| featureType.equalsIgnoreCase("Shared Bike Lane")
+				|| featureType.equalsIgnoreCase("Signed Shared Roadway")
+				|| featureType.equalsIgnoreCase("Signed Shared Road")
+			)
 			{
-				MultiLineString mls = (MultiLineString) geom;
-				for(LineString ls : mls.getLineStrings())
+				featureGroups.get("Shared Lanes").add(feature);
+			}
+			else if
+			(
+				featureType.equalsIgnoreCase("Bike Lane")
+				|| featureType.equalsIgnoreCase("Dedicated Bike Lane")
+			)
+			{
+				featureGroups.get("Bike Lanes").add(feature);
+				//bike lanes
+			}
+			else if
+			(
+				featureType.equalsIgnoreCase("Greenway/Trail")
+				|| featureType.equalsIgnoreCase("Trail")
+			)
+			{
+				featureGroups.get("Trails").add(feature);
+			}
+		}
+		
+		for (String key : featureGroups.keySet())
+		{
+			List<Feature> features = featureGroups.get(key);
+			int color;
+			if (key.equalsIgnoreCase("Bike Lanes"))
+			{
+				color = 0xffcccc00;
+			}
+			else if (key.equalsIgnoreCase("Bike Routes"))
+			{
+				color = Color.BLUE;
+			}
+			else if (key.equalsIgnoreCase("Shared Lanes"))
+			{
+				color = Color.RED;
+			}
+			else
+			{
+				color = Color.GREEN;
+			}
+			
+			for (Feature feature : features)
+			{
+				final PolylineOptions p = new PolylineOptions();
+				p.color(color);
+				p.visible(true);
+				p.width(2);
+				IGeometry geom = feature.getGeometry();
+				if (geom.getType().equalsIgnoreCase("LineString"))
 				{
+					LineString ls = ((LineString) geom); 
 					for (double[] coord : ls.getLine())
 					{
-						Log.d("MultiLineString - LS", coord.toString());
+						Log.d("map", "Adding coord to polyline  + " + coord[1] + "," + coord[0]);
+						p.add(new LatLng(coord[1],coord[0]));
 					}
 				}
+				else if(geom.getType().equalsIgnoreCase("MultiLineString"))
+				{
+					MultiLineString mls = (MultiLineString)geom;
+					for (LineString ls : mls.getLineStrings())
+					{
+						for (double[] coord : ls.getLine())
+						{
+							Log.d("map", "Adding coord to polyline  + " + coord[1] + "," + coord[0]);
+							p.add(new LatLng(coord[1],coord[0]));
+						}
+					}
+				}
+				
+				runOnUiThread(new Runnable()
+				{		
+					@Override
+					public void run()
+					{
+						Log.d("map", "Adding polyline to map.. " + p.toString());
+						map.addPolyline(p);
+						
+					}
+				});
 			}
 		}
 	}
