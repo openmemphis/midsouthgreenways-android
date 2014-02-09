@@ -88,21 +88,21 @@ public class KMLParser extends DefaultHandler {
 			else if (localName.equalsIgnoreCase("LineString")) {
 				currentPlacemark.lineStrings.add(currentLineString);
 			}
-			else if (localName.equalsIgnoreCase("coordinates")) {
-				// if we've hit the coordinates it means that this is a route (greenway path)
+			else if (localName.equalsIgnoreCase("line")) {
+				// if we've hit the line it means that this is a route (greenway path)
 				if (inPoint) {
 					currentPlacemark.isPoint = true;
 				} else {
 					currentPlacemark.isPath = true;
 				}
 				
-				// coordinates are first split by a space, than split by comma for lat, long, and alt
+				// line are first split by a space, than split by comma for lat, long, and alt
 				String[] coordinates = currentValue.toString().split(" ");
 							
 				for (int i=0; i<coordinates.length; i++) {
 					String[] coordinateTuple = coordinates[i].split(",");
 					
-					// all coordinates should have longitude, latitude, and altitude. If not than return
+					// all line should have longitude, latitude, and altitude. If not than return
 					if (coordinateTuple.length != 3) {
 						continue;
 					}

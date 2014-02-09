@@ -13,6 +13,7 @@ import org.midsouthgreenways.android.R;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -27,8 +28,10 @@ import com.google.gson.Gson;
 import com.speakingcode.geojson.Feature;
 import com.speakingcode.geojson.GeoJSON;
 import com.speakingcode.geojson.GeoJSONParserManager;
-import com.speakingcode.geojson.Geometry;
 import com.speakingcode.geojson.IGeoJSONParserClient;
+import com.speakingcode.geojson.IGeometry;
+import com.speakingcode.geojson.LineString;
+import com.speakingcode.geojson.MultiLineString;
 
 public class MapViewerActivity
 	extends SherlockFragmentActivity
@@ -71,7 +74,8 @@ public class MapViewerActivity
     {
     	super.onResume();
     	
-    	setupMap();       
+    	setupMap(); 
+    	getMapData();
     }
 	
 	private void setupMap()
@@ -98,7 +102,9 @@ public class MapViewerActivity
 	
 	public void getMapData()
 	{
+		Log.d("MapViewActivity", "getData() called!!");
 		GeoJSONParserManager gj = new GeoJSONParserManager();
+		gj.setGeoJSONParserClient(this);
 		gj.parseGeoJSON
 		(
 			readAssetTextFile("trails_greenways_wgs84_existing.json")
@@ -156,16 +162,25 @@ public class MapViewerActivity
 	{
 		for (Feature feature : geoJSON.getFeatures())
 		{
-			Geometry geom = feature.getGeometry();
+			IGeometry geom = feature.getGeometry();
 			if(geom.getType().equalsIgnoreCase("LineString"))
 			{
-				//coordinates will be array of 2-dim, 3 element 'coords' arrays
-				
+				LineString lineString = (LineString)geom;
+				for(double[] coord : lineString.getLine())
+				{
+					Log.d("LineString", coord.toString());
+				}
 			}
 			else if(geom.getType().equalsIgnoreCase("MultiLineString"))
 			{
-				//coordinates will be array of arrays of 2-dim,  3-element 'coords' arrays
-				
+				MultiLineString mls = (MultiLineString) geom;
+				for(LineString ls : mls.getLineStrings())
+				{
+					for (double[] coord : ls.getLine())
+					{
+						Log.d("MultiLineString - LS", coord.toString());
+					}
+				}
 			}
 		}
 	}

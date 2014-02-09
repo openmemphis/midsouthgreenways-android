@@ -49,7 +49,7 @@ public class PathManager {
 			lastDataRefreshLocation = currentLocation;
 		}*/
 		
-		// If we are 400 meters away from the last location that we got the slice of greenway coordinates, refresh 1
+		// If we are 400 meters away from the last location that we got the slice of greenway line, refresh 1
 		//double distanceFromLastUpdate = currentLocation.distanceTo(lastDataRefreshLocation);
 		//if (lastDataRefreshLocation == null || currentLocation.distanceTo(lastDataRefreshLocation) >= GREENWAY_SLICE_UPDATE_DISTANCE) {
 			//lastDataRefreshLocation = currentLocation;
@@ -68,8 +68,8 @@ public class PathManager {
 			//return "Refreshed locations";
 		}
 		
-	    // Go through the greenway slice and see if the user is a certain distance away from any of the greenway coordinates. 
-	    // The coordinate that is the closest will be the current greenway they are on. If there are no coordinates within that
+	    // Go through the greenway slice and see if the user is a certain distance away from any of the greenway line. 
+	    // The coordinate that is the closest will be the current greenway they are on. If there are no line within that
 	    // distance, than return nothing.
 	    //double coordinateDistance = -1;
 	    String greenwayName = null;
@@ -147,7 +147,7 @@ public class PathManager {
 	}
 	
 	// Every 400 meters, refresh the slice of greenway that we want to look at. This is a performance improvement so that we are
-	// only looking at greenway coordinates that are near to us instead of the entire greenway system
+	// only looking at greenway line that are near to us instead of the entire greenway system
 	private void refreshGreenwaySlice(KMLDocument doc) {
 		greenwaySliceCoordinates = new ArrayList<KMLCoordinate>();
 		for (int i=0; i<doc.placemarks.size(); i++) {

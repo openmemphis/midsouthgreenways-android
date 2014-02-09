@@ -1,9 +1,11 @@
 package com.speakingcode.geojson;
 
+import android.util.Log;
+
 public class GeoJSONParserManager
 {
 	private IGeoJSONParserClient geoJSONParserClient;
-	private GeoJSONParser geoJSONParser = new GeoJSONParser();
+	private JSONOrgGeoJSONParser geoJSONParser = new JSONOrgGeoJSONParser();
 	
 	public GeoJSONParserManager()
 	{
@@ -21,10 +23,14 @@ public class GeoJSONParserManager
 		{
 			public void run()
 			{
+				//Log.d("GeoJSONParserManager", "parseGeoJSON started!!");
+				GeoJSON gj = GeoJSONParserManager.this.geoJSONParser.parseJSON(geoJSONString);
+				
 				GeoJSONParserManager.this.geoJSONParserClient.onGeoJSONParseDone
 				(
-					GeoJSONParserManager.this.geoJSONParser.parseJson(geoJSONString)
+					gj
 				);
+			
 			}
 		}.start();
 	}

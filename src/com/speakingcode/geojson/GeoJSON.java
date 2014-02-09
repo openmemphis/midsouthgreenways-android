@@ -10,6 +10,11 @@ public class GeoJSON {
 		this.features = features;
 	}
 	
+	public GeoJSON()
+	{
+		
+	}
+	
 	public String getType() {
 		return type;
 	}

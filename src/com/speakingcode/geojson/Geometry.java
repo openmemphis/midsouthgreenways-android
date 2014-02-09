@@ -1,29 +1,19 @@
 package com.speakingcode.geojson;
 
-import java.util.ArrayList;
-
-public class Geometry {
+public class Geometry
+implements IGeometry
+{
 	String type;
-	@SuppressWarnings("rawtypes")
-	ArrayList coordinates;
 	
+	@Override
 	public String getType()
 	{
 		return type;
 	}
 	
+	@Override
 	public void setType(String type)
 	{
 		this.type = type;
-	}
-	
-	public ArrayList getCoordinates()
-	{
-		return coordinates;
-	}
-	
-	public void setCoordinates(ArrayList coordinates)
-	{
-		this.coordinates = coordinates;
 	}
 }
