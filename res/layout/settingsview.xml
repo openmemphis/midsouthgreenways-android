@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/pulldown_bg_iphone" >
+
+    <!-- TextView
+        android:id="@+id/voiceFeedbackTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="21dp"
+        android:text="Voice Feedback"
+        android:gravity="center"
+        android:textColor="#006400"
+        android:textSize="11dp"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/voiceFeedbackRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="100dp"
+        android:layout_below="@+id/voiceFeedbackTextView" >
+
+        <RadioButton
+            android:id="@+id/voiceFeedbackEnabled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:gravity="center"
+            android:text="Enabled"
+            android:textColor="#006400"
+            android:textSize="11dp"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/voiceFeedbackDisabled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Disabled"
+            android:textColor="#006400"
+            android:textSize="11dp"
+            android:textStyle="bold" /-->
+
+        <CheckBox
+            android:id="@+id/voiceFeedbackEnabled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Voice Feedback Enabled"
+            android:textColor="#006400"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:textSize="11dp"
+            android:textStyle="bold" />
+
+    <!--  /RadioGroup-->
+
+</RelativeLayout>

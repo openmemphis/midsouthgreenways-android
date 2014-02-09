@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">MidSouth Greenways</string>
+    
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MidSouth Greenways</string>
+    <string name="titleBar">MidSouth Greenways</string>
+    <string name="windLabel">Wind</string>
+    <string name="humidityLabel">Humidity</string>
+    <string name="greenwayIssueLabel">What issue did you find on the greenway?</string>
+    <string name="submitLabel">Submit</string>
+    <string name="greenwayErrorLabel">You must be on the greenway to submit an error</string>
+
+</resources>

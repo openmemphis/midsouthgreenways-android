@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/pulldown_bg_iphone" >
+
+    <TextView
+        android:id="@+id/configureSocialMedia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:textColor="#006400"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        android:text="You must sign in with your Facebook account to enable check ins at this location" />
+    
+    <org.midsouthgreenways.android.LoginButton
+            android:id="@+id/facebookLogin"
+            android:src="@drawable/login_button"
+            android:layout_below="@+id/configureSocialMedia"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    
+</RelativeLayout>
+    

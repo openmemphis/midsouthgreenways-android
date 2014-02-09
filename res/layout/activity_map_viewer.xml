@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/maplayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#4A7824" >
+
+        <LinearLayout
+            android:id="@+id/layer_selection_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="#F0F3E7"
+            android:orientation="vertical" >
+
+            <CheckBox
+                android:id="@+id/greenways_trails_bikes_checkbox"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:text="Greenways, Trails, Bikes"
+                android:textColor="#4A7824"
+                android:textSize="25sp" />
+
+            <CheckBox
+                android:id="@+id/parks_checkbox"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:text="Parks"
+                android:textColor="#4A7824"
+                android:textSize="25sp" />
+        </LinearLayout>
+    </FrameLayout>
+
+</FrameLayout>

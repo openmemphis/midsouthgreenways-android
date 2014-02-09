@@ -1,0 +1,89 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/pulldown_bg_iphone" >
+
+    <ImageView
+        android:id="@+id/greenwayMarkerImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="38dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/grey_marker" />
+
+    <TextView
+        android:id="@+id/greenwayTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/greenwayMarkerImageView"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="12dp"
+        android:layout_toRightOf="@+id/greenwayMarkerImageView"
+        android:text="No Greenway Found"
+        android:textColor="#999999"
+        android:textSize="14dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/greenwayErrorLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/greenwayMarkerImageView"
+        android:layout_marginTop="32dp"
+        android:gravity="center_horizontal"
+        android:text="You must be on the greenway to check in"
+        android:textColor="#006400"
+        android:textSize="11dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/headingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/greenwayMarkerImageView"
+        android:layout_centerHorizontal="true"
+        android:textColor="#006400"
+        android:textSize="11dp"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        android:text="Tell others that you're here!" />
+    
+    <EditText
+        android:id="@+id/descriptionText"
+        android:layout_width="250dp"
+        android:layout_height="27dp"
+        android:layout_below="@+id/headingText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/edittext"
+        android:ems="10"
+        android:hint=" What are you doing? (optional)"
+        android:padding="2dp"
+        android:textSize="12dp" />
+    
+    <ImageButton
+        android:id="@+id/shareButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/descriptionText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:background="@null"
+        android:src="@drawable/facebook_share"
+        android:textColor="#FFFFFF" />
+
+    <!--  ImageButton
+        android:id="@+id/shareTwitterButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/descriptionText"
+        android:layout_toRightOf="@+id/shareButton"
+        android:background="@null"
+        android:src="@drawable/twitter"
+        android:textColor="#FFFFFF" /-->
+
+</RelativeLayout>

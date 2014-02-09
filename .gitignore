@@ -1,0 +1,7 @@
+project.properties
+
+*.swp
+*.swo
+*.swn
+
+bin/*

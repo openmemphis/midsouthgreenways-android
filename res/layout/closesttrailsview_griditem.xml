@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/greenway_list_background" >
+
+    <ImageView
+        android:id="@+id/greenmarker"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/green_marker_map" />
+
+    <TextView
+        android:id="@+id/greenwayNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:textColor="#006400"
+        android:textSize="10dp"
+        android:textStyle="bold"
+        android:layout_marginTop="3dp"
+        android:text="Greenway name" />
+
+    <TextView
+        android:id="@+id/greenwayDescriptionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignLeft="@+id/greenwayNameTextView"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/greenwayNameTextView"
+        android:textColor="#999999"
+        android:textSize="10dp"
+        android:textStyle="bold"
+        android:lineSpacingExtra="2dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="2dp"
+        android:text="Greenway description" />
+
+    <TextView
+        android:id="@+id/greenwayDistanceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/greenwayDescriptionTextView"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:layout_toRightOf="@+id/greenwayNameTextView"
+        android:text="Miles Away"
+        android:textColor="#006400"
+        android:textSize="10dp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

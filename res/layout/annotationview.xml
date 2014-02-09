@@ -1,0 +1,88 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/pulldown_bg_iphone"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/greenwayName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="5dp"
+        android:layout_toLeftOf="@+id/greenwayDistance"
+        android:text="Greenway name"
+        android:textColor="#006400"
+        android:textSize="12dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/greenwayDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="5dp"
+        android:textColor="#006400"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        android:text="Distance" />
+
+    <TextView
+        android:id="@+id/parking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:layout_alignLeft="@+id/greenwayName"
+        android:layout_below="@+id/greenwayName"
+        android:layout_marginTop="6dp"
+        android:layout_marginRight="16dp"
+        android:textSize="12dp"
+        android:textColor="#000000"
+        android:text="Parking" />
+    
+    <TextView
+        android:id="@+id/greenwayDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
+        android:layout_alignLeft="@+id/parking"
+        android:layout_below="@+id/parking"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="6dp"
+        android:lineSpacingExtra="1dp"
+        android:text="Description"
+        android:textColor="#000000"
+        android:maxLines="5"
+		android:scrollbars="vertical"
+        android:textSize="12dp" />
+	
+    <Button
+        android:id="@+id/directionsLink"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_alignLeft="@+id/greenwayDescription"
+        android:layout_below="@+id/greenwayDescription"
+        android:textColor="#0000ff"
+        android:textSize="10dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="5dp"
+        android:layout_marginTop="3dp"
+        android:text="Directions to here" />
+
+    <Button
+        android:id="@+id/triangleWikiLink"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_alignBottom="@+id/directionsLink"
+        android:layout_alignParentRight="true"
+        android:textColor="#0000ff"
+        android:textSize="10dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="3dp"
+        android:layout_marginRight="16dp"
+        android:text="More on TriangleWiki" />
+
+</RelativeLayout>

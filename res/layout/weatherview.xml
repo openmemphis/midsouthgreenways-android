@@ -1,0 +1,99 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/pulldown_bg_iphone" >
+
+    <ImageView
+        android:id="@+id/conditionImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:src="@drawable/cond003" />
+
+    <TextView
+        android:id="@+id/temperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/conditionImage"
+        android:layout_alignRight="@+id/conditionImage"
+        android:layout_below="@+id/conditionImage"
+        android:gravity="center_horizontal"
+        android:textColor="#006400" />
+
+    <TextView
+        android:id="@+id/cityName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/conditionImage"
+        android:layout_below="@+id/temperature"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center_horizontal"
+        android:textColor="#006400" />
+
+    <TextView
+        android:id="@+id/condition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="35dp"
+        android:layout_toRightOf="@+id/conditionImage"
+        android:gravity="center_horizontal"
+        android:textColor="#006400" />
+
+    <TextView
+        android:id="@+id/humidityLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/temperature"
+        android:layout_alignLeft="@+id/windConditionLabel"
+        android:gravity="center_vertical"
+        android:text="@string/humidityLabel"
+        android:textColor="#006400" />
+
+    <TextView
+        android:id="@+id/windConditionLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/humidityLabel"
+        android:layout_marginLeft="44dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/conditionImage"
+        android:gravity="center_vertical"
+        android:text="@string/windLabel"
+        android:textColor="#006400" />
+
+    <TextView
+        android:id="@+id/humidity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/humidityLabel"
+        android:layout_alignBottom="@+id/humidityLabel"
+        android:layout_toRightOf="@+id/humidityLabel"
+        android:layout_marginLeft="5dp"
+        android:textColor="#006400" />
+
+    <TextView
+        android:id="@+id/windCondition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/humidity"
+        android:layout_below="@+id/humidity"
+        android:textColor="#006400"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:id="@+id/weatherNotAvailable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/conditionImage"
+        android:layout_centerHorizontal="true"
+        android:textColor="#006400"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        android:text="Weather is not available right now." />
+    
+</RelativeLayout>
