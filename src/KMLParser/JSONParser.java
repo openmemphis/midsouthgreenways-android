@@ -87,10 +87,10 @@ public class JSONParser {
 					jp.nextToken();
 					token = jp.nextToken();
 					
-					// Go through each of the coordinates
+					// Go through each of the line
 					while (token != JsonToken.END_ARRAY) {
 						
-						// Go through each of the coordinates
+						// Go through each of the line
 						String coordinates = jp.getText();
 						boolean connectToBeginningOfString = false;
 						boolean connectToEndOfString = false;
@@ -113,8 +113,8 @@ public class JSONParser {
 								doneProcessing = true;
 							}
 						
-						//while ((end = coordinates.indexOf(' ', pos)) >= 0) {
-							//coordinateArray = coordinates.substring(pos,end);
+						//while ((end = line.indexOf(' ', pos)) >= 0) {
+							//coordinateArray = line.substring(pos,end);
 							//pos = end + 1;
 							
 							// This is for using integer parsing instead of a double
@@ -143,7 +143,7 @@ public class JSONParser {
 							coordinate.latitude = Double.parseDouble(coordinateArray.substring(commaIndex+1));
 							
 							
-						/*StringTokenizer st = new StringTokenizer(coordinates, " ");
+						/*StringTokenizer st = new StringTokenizer(line, " ");
 						while (st.hasMoreTokens()) {	
 							StringTokenizer st2 = new StringTokenizer(st.nextToken(), ",");
 							coordinate = new KMLCoordinate();
@@ -197,7 +197,7 @@ public class JSONParser {
 							placemark.lineStrings.add(lineString);
 						}
 						
-						// advance to next token until we get through all coordinates 4
+						// advance to next token until we get through all line 4
 						token = jp.nextToken();
 					}
 				
@@ -232,8 +232,8 @@ public class JSONParser {
 		/*int pos = 0;
 		int end = 0;
 		String coordinateArray = null;
-		while ((end = coordinates.indexOf(' ', pos)) >= 0) {
-			coordinateArray = coordinates.substring(pos,end);
+		while ((end = line.indexOf(' ', pos)) >= 0) {
+			coordinateArray = line.substring(pos,end);
 			pos = end + 1;*/
 		
 		/*int pos2 = 0;

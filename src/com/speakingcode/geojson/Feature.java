@@ -3,7 +3,7 @@ package com.speakingcode.geojson;
 public class Feature
 {
 	Properties properties;
-	Geometry geometry;
+	IGeometry geometry;
 	
 	public Properties getProperties() {
 		return properties;
@@ -11,10 +11,10 @@ public class Feature
 	public void setProperties(Properties properties) {
 		this.properties = properties;
 	}
-	public Geometry getGeometry() {
+	public IGeometry getGeometry() {
 		return geometry;
 	}
-	public void setGeometry(Geometry geometry) {
+	public void setGeometry(IGeometry geometry) {
 		this.geometry = geometry;
 	}
 	
