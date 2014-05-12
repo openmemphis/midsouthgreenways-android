@@ -94,7 +94,7 @@ public class MapViewerActivity
 		
         GoogleMapOptions options = new GoogleMapOptions()
             .mapType(GoogleMap.MAP_TYPE_NORMAL)
-            .camera(new CameraPosition(new LatLng(42.495694,-96.404795), 1, 0, 0));
+            .camera(new CameraPosition(new LatLng(35.1174, -89.9711), 8, 0, 0));
 
         if (mapFragment == null)
         {
@@ -270,7 +270,7 @@ public class MapViewerActivity
 				final PolylineOptions p = new PolylineOptions();
 				p.color(color);
 				p.visible(true);
-				p.width(2);
+				p.width(4);
 				IGeometry geom = feature.getGeometry();
 				if (geom.getType().equalsIgnoreCase("LineString"))
 				{

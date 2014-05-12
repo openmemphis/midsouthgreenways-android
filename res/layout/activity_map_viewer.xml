@@ -11,7 +11,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="170dp"
         android:background="#4A7824" >
 
         <LinearLayout
@@ -22,23 +22,89 @@
             android:background="#F0F3E7"
             android:orientation="vertical" >
 
-            <CheckBox
-                android:id="@+id/greenways_trails_bikes_checkbox"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.2"
-                android:text="Greenways, Trails, Bikes"
-                android:textColor="#4A7824"
-                android:textSize="25sp" />
+                android:layout_height="40dp" >
 
-            <CheckBox
-                android:id="@+id/parks_checkbox"
+                <ImageView
+                    android:id="@+id/lane_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/layer_lane" />
+
+                <CheckBox
+                    android:id="@+id/bike_lanes_checkbox"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.2"
+                    android:text="Bike Lanes"
+                    android:textColor="#4A7824"
+                    android:textSize="25sp" 
+                    android:layout_toRightOf="@+id/lane_img"/>
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.2"
-                android:text="Parks"
-                android:textColor="#4A7824"
-                android:textSize="25sp" />
+                android:layout_height="40dp" >
+
+                <ImageView
+                    android:id="@+id/sharedlane_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/layer_sharedlane" />
+
+                <CheckBox
+                    android:id="@+id/shared_lanes_checkbox"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.2"
+                    android:text="Shared Lanes"
+                    android:textColor="#4A7824"
+                    android:textSize="25sp"
+                    android:layout_toRightOf="@id/sharedlane_img" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp" >
+
+                <ImageView
+                    android:id="@+id/route_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/layer_route" />
+
+                <CheckBox
+                    android:id="@+id/bike_routes_checkbox"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.2"
+                    android:text="Bike Routes"
+                    android:textColor="#4A7824"
+                    android:textSize="25sp" 
+                    android:layout_toRightOf="@id/route_img"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp" >
+
+                <ImageView
+                    android:id="@+id/greenway_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/layer_greenway" />
+
+                <CheckBox
+                    android:id="@+id/greenways_checkbox"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.2"
+                    android:text="Greenways/Trails"
+                    android:textColor="#4A7824"
+                    android:textSize="25sp" 
+                    android:layout_toRightOf="@id/greenway_img"/>
+            </RelativeLayout>
         </LinearLayout>
     </FrameLayout>
 
