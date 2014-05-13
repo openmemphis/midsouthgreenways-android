@@ -18,6 +18,9 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -47,6 +50,10 @@ public class MapViewerActivity
 	Gson gson = new Gson();
 	
 	private boolean processedMap = false;
+	
+	private HashMap<String, List<PolylineOptions>> currentMapLines = new HashMap<String, List<PolylineOptions>>();
+	private HashMap<String, List<PolylineOptions>> allMapLines = new HashMap<String, List<PolylineOptions>>();
+
 	
 	
 	@Override
@@ -83,6 +90,7 @@ public class MapViewerActivity
     	
     	setupMap(); 
     	getMapData();
+    	setupButtons();
     }
 	
 	private void setupMap()
@@ -121,6 +129,30 @@ public class MapViewerActivity
 		(
 			readAssetTextFile("trails_greenways_wgs84_existing.json")
 		);
+	}
+	
+	public void setupButtons()
+	{
+		CheckBox bikeLaneSelectButton = (CheckBox) findViewById(R.id.bike_lanes_checkbox);
+		bikeLaneSelectButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if(isChecked)
+				{
+					refreshMap();
+//					for (PolylineOptions p : allMapLines.values())
+//					{
+//						cu.addPolyline(p);
+//					}
+				}
+				else
+				{
+					map.clear();
+				}
+				
+			}
+		});
 	}
 	
 	public String readAssetTextFile(String filename)
@@ -247,6 +279,8 @@ public class MapViewerActivity
 		for (String key : featureGroups.keySet())
 		{
 			List<Feature> features = featureGroups.get(key);
+			allMapLines.put(key, new ArrayList<PolylineOptions>());
+
 			int color;
 			if (key.equalsIgnoreCase("Bike Lanes"))
 			{
@@ -277,7 +311,7 @@ public class MapViewerActivity
 					LineString ls = ((LineString) geom); 
 					for (double[] coord : ls.getLine())
 					{
-						Log.d("map", "Adding coord to polyline  + " + coord[1] + "," + coord[0]);
+						//Log.d("map", "Adding coord to polyline  + " + coord[1] + "," + coord[0]);
 						p.add(new LatLng(coord[1],coord[0]));
 					}
 				}
@@ -288,24 +322,42 @@ public class MapViewerActivity
 					{
 						for (double[] coord : ls.getLine())
 						{
-							Log.d("map", "Adding coord to polyline  + " + coord[1] + "," + coord[0]);
+							//Log.d("map", "Adding coord to polyline  + " + coord[1] + "," + coord[0]);
 							p.add(new LatLng(coord[1],coord[0]));
 						}
 					}
 				}
-				
-				runOnUiThread(new Runnable()
-				{		
-					@Override
-					public void run()
-					{
-						Log.d("map", "Adding polyline to map.. " + p.toString());
-						map.addPolyline(p);
-						
-					}
-				});
+				allMapLines.get(key).add(p);
+//				runOnUiThread(new Runnable()
+//				{		
+//					@Override
+//					public void run()
+//					{
+//						Log.d("map", "Adding polyline to map.. " + p.toString());
+//						map.addPolyline(p);
+//						
+//					}
+//				});
 			}
 		}
+	}
+	
+	public void refreshMap()
+	{
+		runOnUiThread(new Runnable()
+		{		
+			@Override
+			public void run()
+			{
+				for (List<PolylineOptions> featuregroup : allMapLines.values())
+				{
+					for (PolylineOptions p : featuregroup)
+					{
+						map.addPolyline(p);
+					}
+				}
+			}
+		});
 	}
 
 }
