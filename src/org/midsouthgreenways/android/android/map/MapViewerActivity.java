@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -25,7 +26,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.widget.SearchView;
+import com.actionbarsherlock.view.MenuItem;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -33,6 +34,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.gson.Gson;
+import com.speakingcode.android.location.LocationMapManager;
 import com.speakingcode.geojson.Feature;
 import com.speakingcode.geojson.GeoJSON;
 import com.speakingcode.geojson.GeoJSONParserManager;
@@ -53,6 +55,8 @@ public class MapViewerActivity
 	
 	private HashMap<String, List<PolylineOptions>> currentMapLines = new HashMap<String, List<PolylineOptions>>();
 	private HashMap<String, List<PolylineOptions>> allMapLines = new HashMap<String, List<PolylineOptions>>();
+	
+	private LocationMapManager locationManager;
 
 	
 	
@@ -73,15 +77,33 @@ public class MapViewerActivity
     {
         MenuInflater inflater = getSupportMenuInflater();
         inflater.inflate(R.menu.map_viewer_activity, menu);
-        
-        final SearchView searchView = new SearchView(getSupportActionBar().getThemedContext());
-        searchView.setQueryHint("Enter Address");
-        
-        // Must have a "final" version of the menu to be able to use in the anonymous classes.
-        final Menu finalMenu = menu;
 
         return super.onPrepareOptionsMenu(menu);
     }
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch(item.getItemId())
+		{
+			case R.id.menu_map_options:
+				View mapOptionsPanel = findViewById(R.id.map_options_panel);
+				if (mapOptionsPanel.getVisibility() == View.INVISIBLE)
+					mapOptionsPanel.setVisibility(View.VISIBLE);
+				else
+					mapOptionsPanel.setVisibility(View.INVISIBLE);
+				
+				return true;
+			
+			case R.id.menu_current_location:
+				this.locationManager.geolocate();
+	            
+				return true;
+
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}
 	
 	@Override
     public void onResume()
@@ -91,6 +113,10 @@ public class MapViewerActivity
     	setupMap(); 
     	getMapData();
     	setupButtons();
+    	
+    	if (this.locationManager == null) {
+    	    this.locationManager = new LocationMapManager(this, this.map);
+    	}
     }
 	
 	private void setupMap()
@@ -102,6 +128,7 @@ public class MapViewerActivity
 		
         GoogleMapOptions options = new GoogleMapOptions()
             .mapType(GoogleMap.MAP_TYPE_NORMAL)
+            .rotateGesturesEnabled(true)
             .camera(new CameraPosition(new LatLng(35.1174, -89.9711), 8, 0, 0));
 
         if (mapFragment == null)
@@ -140,15 +167,70 @@ public class MapViewerActivity
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if(isChecked)
 				{
+					currentMapLines.put("Bike Lanes",allMapLines.get("Bike Lanes"));
 					refreshMap();
-//					for (PolylineOptions p : allMapLines.values())
-//					{
-//						cu.addPolyline(p);
-//					}
 				}
 				else
 				{
-					map.clear();
+					currentMapLines.remove("Bike Lanes");
+					refreshMap();
+				}
+				
+			}
+		});
+		
+		CheckBox bikeRouteSelectButton = (CheckBox) findViewById(R.id.bike_routes_checkbox);
+		bikeRouteSelectButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if(isChecked)
+				{
+					currentMapLines.put("Bike Routes",allMapLines.get("Bike Routes"));
+					refreshMap();
+				}
+				else
+				{
+					currentMapLines.remove("Bike Routes");
+					refreshMap();
+				}
+				
+			}
+		});
+		
+		CheckBox sharedLaneSelectButton = (CheckBox) findViewById(R.id.shared_lanes_checkbox);
+		sharedLaneSelectButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if(isChecked)
+				{
+					currentMapLines.put("Shared Lanes",allMapLines.get("Shared Lanes"));
+					refreshMap();
+				}
+				else
+				{
+					currentMapLines.remove("Shared Lanes");
+					refreshMap();
+				}
+				
+			}
+		});
+		
+		CheckBox trailsSelectButton = (CheckBox) findViewById(R.id.greenways_checkbox);
+		trailsSelectButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if(isChecked)
+				{
+					currentMapLines.put("Trails",allMapLines.get("Trails"));
+					refreshMap();
+				}
+				else
+				{
+					currentMapLines.remove("Trails");
+					refreshMap();
 				}
 				
 			}
@@ -349,8 +431,16 @@ public class MapViewerActivity
 			@Override
 			public void run()
 			{
-				for (List<PolylineOptions> featuregroup : allMapLines.values())
+				map.clear();
+				if (currentMapLines == null
+					|| currentMapLines.values().size() == 0)
+					return;
+
+				for (List<PolylineOptions> featuregroup : currentMapLines.values())
 				{
+					if (featuregroup == null || featuregroup.size() == 0)
+						return;
+					
 					for (PolylineOptions p : featuregroup)
 					{
 						map.addPolyline(p);

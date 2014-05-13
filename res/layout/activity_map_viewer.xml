@@ -10,16 +10,18 @@
         android:orientation="vertical" />
 
     <FrameLayout
+        android:id="@+id/map_options_panel"
         android:layout_width="match_parent"
         android:layout_height="170dp"
-        android:background="#4A7824" >
+        android:background="#F0F3E7"
+         >
 
         <LinearLayout
             android:id="@+id/layer_selection_panel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:background="#F0F3E7"
+            android:background="#4A7824"
             android:orientation="vertical" >
 
             <RelativeLayout
@@ -38,7 +40,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"
                     android:text="Bike Lanes"
-                    android:textColor="#4A7824"
+                    android:textColor="#F0F3E7"
                     android:textSize="25sp" 
                     android:layout_toRightOf="@+id/lane_img"/>
             </RelativeLayout>
@@ -59,7 +61,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"
                     android:text="Shared Lanes"
-                    android:textColor="#4A7824"
+                    android:textColor="#F0F3E7"
                     android:textSize="25sp"
                     android:layout_toRightOf="@id/sharedlane_img" />
             </RelativeLayout>
@@ -80,7 +82,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"
                     android:text="Bike Routes"
-                    android:textColor="#4A7824"
+                    android:textColor="#F0F3E7"
                     android:textSize="25sp" 
                     android:layout_toRightOf="@id/route_img"/>
             </RelativeLayout>
@@ -101,7 +103,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"
                     android:text="Greenways/Trails"
-                    android:textColor="#4A7824"
+                    android:textColor="#F0F3E7"
                     android:textSize="25sp" 
                     android:layout_toRightOf="@id/greenway_img"/>
             </RelativeLayout>
